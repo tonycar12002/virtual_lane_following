@@ -17,27 +17,12 @@
 
 	<!-- Lane Filter -->
 	<remap from="lane_filter_node/segment_list" to="ground_projection/lineseglist_out"/>
-	<!--remap from="lane_filter_node/segment_list" to="line_detector_node/segment_list"/-->
-        <!--remap from="lane_filter_node/velocity" to="forward_kinematics_node/velocity"/-->
 	<include file="$(find lane_filter)/launch/lane_filter_node.launch">
 	    <arg name="veh" value="$(arg veh)"/>
 	    <arg name="local" value="$(arg local)"/>
 	    <arg name="config" value="$(arg config)"/>
 	    <arg name="param_file_name" value="$(arg param_file_name)"/>
 	</include>
-
-	<!-- Stop Line Filter -->
-	<remap from="stop_line_filter_node/lanewidth" to="lane_filter_node/lanewidth"/>
-	<remap from="stop_line_filter_node/lane_pose" to="lane_filter_node/lane_pose"/>
-	<remap from="stop_line_filter_node/segment_list" to="ground_projection/lineseglist_out"/>
-	<!--remap from="stop_line_filter_node/segment_list" to="line_detector_node/segment_list"/-->
-	<include file="$(find stop_line_filter)/launch/stop_line_filter_node.launch">
-	    <arg name="veh" value="$(arg veh)"/>
-	    <arg name="local" value="$(arg local)"/>
-	    <arg name="config" value="$(arg config)"/>
-	    <arg name="param_file_name" value="$(arg param_file_name)"/>
-	</include>
-
 
 	<!-- Visualize -->
 	<include file="$(find lane_filter)/launch/lane_pose_visualizer_node.launch">

@@ -17,8 +17,6 @@
 		 <arg name="live" value="$(arg live)"/>
 	</include>
 
-	<!--remap from="/$(arg veh)/camera_node/image/compressed" to="/mybot/camera1/image_raw/compressed"/>
-	<remap from="/$(arg veh)/camera_node/camera_info" to="/mybot/camera1/camera_info"/-->	
 	<remap from="/$(arg veh)/camera_node/image/compressed" to="camera_node/image/raw/compressed"/>
 	<include file="$(find ground_projection)/launch/ground_projection.launch">
 		 <arg name="veh" value="$(arg veh)"/>

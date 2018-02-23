@@ -8,7 +8,9 @@ from geometry_msgs.msg import Twist
 class lane_controller(object):
     def __init__(self):
         self.node_name = rospy.get_name()
-        self.turn = 0.7
+        self.turn_d = -3
+        self.turn_phi = -1
+
         self.gain = 0.5
 
         # Publicaiton
@@ -23,6 +25,8 @@ class lane_controller(object):
         rospy.loginfo("[%s] Initialized " %(rospy.get_name()))
 
     def custom_shutdown(self):
+        rospy.loginfo("[%s] Shutdown" %(rospy.get_name()))
+        rospy.sleep(0.5)
         car_twist_msg = Twist()
         car_twist_msg.linear.x = 0
         car_twist_msg.angular.z = 0
@@ -31,8 +35,8 @@ class lane_controller(object):
 
     def cbPose(self,lane_pose_msg):
 
-        turn = self.turn * lane_pose_msg.d *10
-        #rospy.loginfo(lane_pose_msg.d)
+        turn = self.turn_phi * lane_pose_msg.phi + self.turn_d * lane_pose_msg.d
+        #print ("phi = " + str(self.turn_phi * lane_pose_msg.phi) + ", d = " + str(self.turn_d * lane_pose_msg.d))
         car_twist_msg = Twist()
         car_twist_msg.linear.x = self.gain
         car_twist_msg.angular.z = turn

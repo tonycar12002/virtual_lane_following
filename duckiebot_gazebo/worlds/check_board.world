@@ -86,7 +86,7 @@
         <collision name='collision'>
           <geometry>
             <mesh>
-              <uri>model://check_board_2times/meshes/check_board_2times_collision.dae</uri>
+              <uri>model://model_/check_board_2times/meshes/check_board_2times_collision.dae</uri>
             </mesh>
           </geometry>
           <max_contacts>10</max_contacts>
@@ -106,7 +106,7 @@
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>model://check_board_2times/meshes/check_board_2times.dae</uri>
+              <uri>model://model_/check_board_2times/meshes/check_board_2times.dae</uri>
             </mesh>
           </geometry>
           <cast_shadows>0</cast_shadows>

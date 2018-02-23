@@ -8,6 +8,7 @@
   <arg name="debug" default="false"/>
   <arg name="world_name" default="duckietown_circle_road"/>
   <arg name="veh" default="david" doc="Name of vehicle. ex: megaman"/>
+  <env name="GAZEBO_MODEL_PATH" value="$GAZEBO_MODEL_PATH:$(find duckiebot_gazebo)" />
 
   <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
