@@ -4,15 +4,34 @@
 	<arg name="config" default="baseline" doc="Specify a config."/>
 	<arg name="param_file_name" default="default" doc="Specify a param file. ex:megaman." />
 	<arg name="live" default="true" doc="if set to true, run the camera and do live detection. "/>
+ 	<arg name="camera_topic" default="camera_node"/>
+	<arg name="view_markers" default="true" doc="should we output markers for rviz?"/>
 	<arg name="only" default="false" doc="Only run the ground_projection part when set to true."/>
+	<arg name="verbose" value="true" />
+
+	<!-- Line Detector -->
+	<remap from="line_detector_node/image" to="camera_node/image/raw/compressed"/>
+	<include  unless="$(arg only)" file="$(find line_detector)/launch/line_detector_node.launch">
+		 <arg name="veh" value="$(arg veh)"/>
+		 <arg name="local" value="$(arg local)"/>
+		 <arg name="config" value="$(arg config)"/>
+		 <arg name="param_file_name" value="$(arg param_file_name)"/>
+		 <arg name="verbose" value="$(arg verbose)" />
+	</include>
 
 	<!-- Ground projection -->
-	<include unless="$(arg only)" file="$(find duckiebot_control)/launch/gazebo_ground_projection.launch">
-	    <arg name="veh" value="$(arg veh)"/>
-	    <arg name="local" value="$(arg local)"/>
-	    <arg name="config" value="$(arg config)"/>
-	    <arg name="param_file_name" value="$(arg param_file_name)"/>
-	    <arg name="live" value="$(arg live)"/>
+	<include file="$(find ground_projection)/launch/ground_projection.launch">
+		 <arg name="veh" value="$(arg veh)"/>
+		 <arg name="local" value="$(arg local)"/>
+		 <arg name="config" value="$(arg config)"/>
+		 <arg name="param_file_name" value="$(arg param_file_name)"/>
+		 <arg name="camera_topic" value="$(arg camera_topic)"/>
+	</include>	
+
+	<!-- Duckiebot visualizer (always local) -->
+	<remap from="duckiebot_visualizer/segment_list" to="ground_projection/lineseglist_out"/>
+	<include file="$(find duckiebot_visualizer)/launch/duckiebot_visualizer.launch">
+		<arg name="veh" value="$(arg veh)" />
 	</include>
 
 	<!-- Lane Filter -->

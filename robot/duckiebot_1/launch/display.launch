@@ -6,7 +6,7 @@
     default="False" />
   <param
     name="robot_description"
-    textfile="$(find mobile_bot)/urdf/mobile_bot.urdf" />
+    textfile="$(find duckiebot_1)/urdf/duckiebot_1.urdf" />
   <param
     name="use_gui"
     value="$(arg gui)" />
@@ -22,5 +22,5 @@
     name="rviz"
     pkg="rviz"
     type="rviz"
-    args="-d $(find mobile_bot)/urdf.rviz" />
+    args="-d $(find duckiebot_1)/urdf.rviz" />
 </launch>

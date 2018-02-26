@@ -18,7 +18,20 @@
     <arg name="paused" value="$(arg paused)"/>
     <arg name="use_sim_time" value="$(arg use_sim_time)"/>
     <arg name="headless" value="$(arg headless)"/>
-
   </include>
-  <node name="mount_spawn" pkg="gazebo_ros" type="spawn_model" output="screen" args="-file $(find mobile_bot)/urdf/mobile_bot.urdf -urdf -z 1 -model mobile_bot -veh david"/>
+
+
+  <node name="mount_spawn" pkg="gazebo_ros" type="spawn_model" output="screen" 
+  args="-file $(find mobile_bot)/urdf/mobile_bot.urdf -urdf -z 1 -model mobile_bot -veh david"/>
+
+  <param name="robot_description" textfile="$(find mobile_bot)/urdf/mobile_bot.urdf" />
+
+  <!-- Load joint controller configurations from YAML file to parameter server -->
+  <rosparam file="$(find mobile_bot)/config/mobile_bot.yaml" command="load"/>
+
+  <!-- load the controllers -->
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" ns="/mobile_bot" args="left_wheel_position_controller right_wheel_position_controller joint_state_controller"/>
+
+  
 </launch>

@@ -15,6 +15,7 @@
         <rosparam command="load" file="$(find duckiebot_control)/config/$(arg config)/gazebo_joy_mapper/gazebo_joy_mapper_node/$(arg param_file_name).yaml"/>
     </node>
 
+
     <!-- joy_mapper -->
     <include file="$(find gazebo_joy_mapper)/launch/gazebo_joy_mapper_node.launch">
         <arg name="veh" value="$(arg veh)"/>
