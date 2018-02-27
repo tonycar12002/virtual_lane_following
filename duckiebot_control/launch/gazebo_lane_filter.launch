@@ -11,13 +11,10 @@
 
 	<!-- Line Detector -->
 	<remap from="line_detector_node/image" to="camera_node/image/raw/compressed"/>
-	<include  unless="$(arg only)" file="$(find line_detector)/launch/line_detector_node.launch">
-		 <arg name="veh" value="$(arg veh)"/>
-		 <arg name="local" value="$(arg local)"/>
-		 <arg name="config" value="$(arg config)"/>
-		 <arg name="param_file_name" value="$(arg param_file_name)"/>
-		 <arg name="verbose" value="$(arg verbose)" />
-	</include>
+	<node ns="$(arg veh)" name="line_detector_node" pkg="line_detector" type="line_detector_node.py" output="screen" clear_params="true" required="true">
+		<rosparam command="load" file="$(find duckiebot_control)/config/$(arg config)/gazebo_line_detector/line_detector_node/$(arg param_file_name).yaml"/>
+		<param name="verbose" value="true"/>
+	</node>
 
 	<!-- Ground projection -->
 	<include file="$(find ground_projection)/launch/ground_projection.launch">

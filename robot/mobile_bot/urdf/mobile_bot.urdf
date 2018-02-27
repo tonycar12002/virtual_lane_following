@@ -157,9 +157,11 @@
       </material>
     </visual>
     <collision>
+      <origin xyz="0 0 0" rpy="0 1.57 1.57"/>
       <geometry>
-        <mesh
-          filename="package://mobile_bot/meshes/left_wheel_link.STL" />
+        <!--mesh
+          filename="package://mobile_bot/meshes/left_wheel_link.STL" /-->
+          <cylinder radius="0.1" length="0.05"/>
       </geometry>
     </collision>
   </link>
@@ -207,9 +209,11 @@
       </material>
     </visual>
     <collision>
+      <origin xyz="0 0 0" rpy="0 1.57 1.57"/>
       <geometry>
-        <mesh
-          filename="package://mobile_bot/meshes/right_wheel_link.STL" />
+        <!--mesh
+          filename="package://mobile_bot/meshes/right_wheel_link.STL" /-->
+          <cylinder radius="0.1" length="0.05"/>
       </geometry>
     </collision>
   </link>
@@ -257,9 +261,11 @@
       </material>
     </visual>
     <collision>
+      <origin xyz="0 0 0" rpy="0 1.57 1.57"/>
       <geometry>
-        <mesh
-          filename="package://mobile_bot/meshes/aux_link.STL" />
+        <!--mesh
+          filename="package://mobile_bot/meshes/aux_link.STL" /-->
+          <cylinder radius="0.039" length="0.05"/>
       </geometry>
     </collision>
   </link>
@@ -305,30 +311,28 @@
 
   <gazebo>
     <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-      <robotNamespace>/david</robotNamespace>
+      <robotNamespace>/</robotNamespace>
     </plugin>
   </gazebo>
 
-  <transmission name="tran1">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="left_wheel_joint">
-      <hardwareInterface>EffortJointInterface</hardwareInterface>
-    </joint>
-    <actuator name="left_wheel_motor">
-      <hardwareInterface>EffortJointInterface</hardwareInterface>
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-  </transmission>
+		<transmission name="left_wheel" type="SimpleTransmission">
+			<type>transmission_interface/SimpleTransmission</type>
+			<actuator name="left_wheel_wheel_motor">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+			<joint name="left_wheel_joint">
+				<hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+			</joint>
+		</transmission>
 
-  <transmission name="tran2">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="right_wheel_joint">
-      <hardwareInterface>EffortJointInterface</hardwareInterface>
-    </joint>
-    <actuator name="right_wheel_motor">
-      <hardwareInterface>EffortJointInterface</hardwareInterface>
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-  </transmission>
+		<transmission name="right_wheel" type="SimpleTransmission">
+			<type>transmission_interface/SimpleTransmission</type>
+			<actuator name="right_wheel_motor">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+			<joint name="right_wheel_joint">
+				<hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+			</joint>
+		</transmission>
 
 </robot>

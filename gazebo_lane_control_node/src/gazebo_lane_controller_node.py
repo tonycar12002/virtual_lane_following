@@ -14,7 +14,7 @@ class lane_controller(object):
         self.gain = 0.5
 
         # Publicaiton
-        self.pub_car_twist = rospy.Publisher("/cmd_vel",Twist,queue_size=1)
+        self.pub_car_twist = rospy.Publisher("/duckiebot_velocity_controller/cmd_vel",Twist,queue_size=1)
         # Subscriptions
         self.sub_lane_reading = rospy.Subscriber("~lane_pose", LanePose, self.cbPose, queue_size=1)
 

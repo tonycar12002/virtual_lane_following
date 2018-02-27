@@ -3,9 +3,10 @@ import rospy
 import math
 import numpy as np
 from duckietown_msgs.msg import Twist2DStamped, BoolStamped
-from sensor_msgs.msg import Joy, JointState
+from sensor_msgs.msg import Joy
 from geometry_msgs.msg import Twist, Vector3
 from std_msgs.msg import Header
+import time
 from __builtin__ import True
 
 class GazeboJoyMapper(object):
@@ -13,17 +14,20 @@ class GazeboJoyMapper(object):
         self.node_name = rospy.get_name()
         rospy.loginfo("[%s] Initializing " %(self.node_name))
         self.joy = None
+        self.linear = 0
+        self.angular = 0 
 
         # Subscriptions
         self.sub_joy_ = rospy.Subscriber("joy", Joy, self.cbJoy, queue_size=1)
 
         # Publications
-        self.pub_car_twist = rospy.Publisher("/cmd_vel", Twist, queue_size=1)
-        self.pub_joint = rospy.Publisher('/joint_states', JointState, queue_size=10)
+        self.pub_car_twist = rospy.Publisher("/duckiebot_velocity_controller/cmd_vel", Twist, queue_size=1)
 
         #Setup Parameters
         self.v_gain = 1.0
         self.omega_gain = 1.0
+
+        rospy.Timer(rospy.Duration(0.2), self.send_carcmd)
 
     def cbJoy(self, joy_msg):
         self.joy = joy_msg
@@ -31,27 +35,15 @@ class GazeboJoyMapper(object):
 
     def publishControl(self):
 
-        
-        joint_cmd = JointState()
-        joint_cmd.header = Header()
-        joint_cmd.header.stamp = self.joy.header.stamp
-        joint_cmd.name = ['left_wheel_joint', 'right_wheel_joint', 'aux_wheel_joint']
-        joint_cmd.velocity = [self.joy.axes[1] * self.v_gain, 0.0, 0.0]
-        joint_cmd.effort = [10, 10, 10]
-        joint_cmd.position = [self.joy.axes[1] * self.v_gain, 0.0, 0.0]
-        self.pub_joint.publish(joint_cmd)
-        
+        self.linear = self.joy.axes[1] * self.v_gain
+        self.angular = self.omega_gain * self.joy.axes[3]
+         
+    def send_carcmd(self, event):
 
-        '''
         car_twist_msg = Twist()
-        car_twist_msg.linear = Vector3(self.joy.axes[1] * self.v_gain, 0.0, 0.0) 
-        car_twist_msg.angular = Vector3(0, 0, self.omega_gain * self.joy.axes[3])
-
-        #rospy.loginfo("linear = %s \nangular = %s" %(self.joy.axes[1] , self.joy.axes[3]))
-        #rospy.loginfo("linear = %s \nangular = %s" %(car_twist_msg.linear, car_twist_msg.angular))
+        car_twist_msg.linear = Vector3(self.linear, 0.0, 0.0) 
+        car_twist_msg.angular = Vector3(0, 0, self.angular)
         self.pub_car_twist.publish(car_twist_msg)
-        '''
-
 
 if __name__ == "__main__":
     rospy.init_node("gazebo_joy_mapper",anonymous=False)

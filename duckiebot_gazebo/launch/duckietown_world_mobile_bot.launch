@@ -20,18 +20,21 @@
     <arg name="headless" value="$(arg headless)"/>
   </include>
 
-
-  <node name="mount_spawn" pkg="gazebo_ros" type="spawn_model" output="screen" 
-  args="-file $(find mobile_bot)/urdf/mobile_bot.urdf -urdf -z 1 -model mobile_bot -veh david"/>
-
   <param name="robot_description" textfile="$(find mobile_bot)/urdf/mobile_bot.urdf" />
+  <node name="mount_spawn" pkg="gazebo_ros" type="spawn_model" output="screen" 
+  args="-urdf -param robot_description -z 1 -model mobile_bot -veh david"/>
 
-  <!-- Load joint controller configurations from YAML file to parameter server -->
-  <rosparam file="$(find mobile_bot)/config/mobile_bot.yaml" command="load"/>
+  <node
+    name="joint_state_publisher"
+    pkg="joint_state_publisher"
+    type="joint_state_publisher" />
+  <node
+    name="robot_state_publisher"
+    pkg="robot_state_publisher"
+    type="state_publisher" />
 
-  <!-- load the controllers -->
-  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
-    output="screen" ns="/mobile_bot" args="left_wheel_position_controller right_wheel_position_controller joint_state_controller"/>
+  <rosparam command="load" file="$(find mobile_bot)/config/mobile_bot.yaml" />
+  <node name="base_controller_spawner" pkg="controller_manager" type="spawner" 
+  args="duckiebot_joint_publisher duckiebot_velocity_controller --shutdown-timeout 3"/>
 
-  
 </launch>
