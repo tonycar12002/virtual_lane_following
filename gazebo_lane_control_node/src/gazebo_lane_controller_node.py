@@ -8,8 +8,8 @@ from geometry_msgs.msg import Twist
 class lane_controller(object):
     def __init__(self):
         self.node_name = rospy.get_name()
-        self.turn_d = -2.5
-        self.turn_phi = -5
+        self.turn_d = -10
+        self.turn_phi = -3
 
         self.gain = 0.5
 
