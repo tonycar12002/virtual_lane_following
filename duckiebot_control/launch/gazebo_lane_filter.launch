@@ -24,7 +24,7 @@
 		 <arg name="param_file_name" value="$(arg param_file_name)"/>
 		 <arg name="camera_topic" value="$(arg camera_topic)"/>
 	</include>	
-
+ 
 	<!-- Duckiebot visualizer (always local) -->
 	<remap from="duckiebot_visualizer/segment_list" to="ground_projection/lineseglist_out"/>
 	<include file="$(find duckiebot_visualizer)/launch/duckiebot_visualizer.launch">
