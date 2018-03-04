@@ -5,23 +5,41 @@ This README would normally document whatever steps are necessary to get your app
 
 ### What is this repository for? ###
 
+* A ros package
 * Virtual lane following in gazebo
+* Clone this repo to duckietown 
 
 ### How do I get set up? ###
 
-* Install ros-kinetic and gazebo, the gazebo version we use is 7.0. <br>
-  If you install ros-kinetic-full, you don't need to install gazebo again.
-  The gazebo installation web is http://gazebosim.org/tutorials?tut=install_ubuntu&ver=7.0 
-* Install gazebo_ros_pkg and the pkg installation web is <br> 
-  http://gazebosim.org/tutorials?tut=ros_installing&cat=connect_ros
-
-* Downloads the model to your computer, https://drive.google.com/file/d/0Bz5CkhsICbi4cXRjTFRGSEMtVlk/view?usp=sharing <br> 
-  extract it and copy 3 folders inside the compressed file to ~/.gazebo/models . <br>
-  If you didn't see the models folder, you just need to run gazebo once after installation. <br>
+1. Install some packages about tos, gazebo, python
+```
+$ bash install_dependency.sh
+```
+2. 
  
 ### How to run the code? ###
 
-* https://docs.google.com/document/d/1Zh7R8OTSAg1-AbVaFj8m9RS31RsimaUxCJol0ow4ImM/edit?usp=sharing <br>
+1. first terminal:
+```
+$ cd
+$ cd duckietown
+$ source environment.sh
+$ roslaunch duckiebot_gazebo duckietown_world_mobile_bot.launch 
+```
+2. second terminal:
+```
+$ cd
+$ cd duckietown
+$ source environment.sh
+$ roslaunch duckiebot_control gazebo_lane_following.launch
+```
+3. third terminal:
+```
+$ cd
+$ cd duckietown
+$ source environment.sh
+$ rviz
+```
 
 ### Who do I talk to? ###
 
