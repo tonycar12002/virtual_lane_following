@@ -11,7 +11,7 @@ This README would normally document whatever steps are necessary to get your app
 
 ### How do I get set up? ###
 
-1. Install some packages about tos, gazebo, python
+1. Install some packages about ros, gazebo, python
 ```
 $ bash install_dependency.sh
 ```
