@@ -2,6 +2,7 @@
 
 Duckiebot Simulator by Duckietown NCTU
 This README would normally document whatever steps are necessary to get your application up and running.
+[Duckietown lane following repo](https://github.com/duckietown/Software)
 
 ### What is this repository for? ###
 
@@ -13,9 +14,10 @@ This README would normally document whatever steps are necessary to get your app
 
 1. Install some packages about ros, gazebo, python
 ```
+$ source file_downloads.sh
+$ source create_machine.sh
 $ bash install_dependency.sh
-```
-2. 
+``` 
  
 ### How to run the code? ###
 
