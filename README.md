@@ -3,7 +3,7 @@
 Duckiebot Simulator by Duckietown NCTU
 This README would normally document whatever steps are necessary to get your application up and running.
 [Duckietown lane following repo](https://github.com/duckietown/Software)
-
+youtube:https://www.youtube.com/watch?v=6zzI0RKUylQ
 ### What is this repository for? ###
 
 * A ros package
